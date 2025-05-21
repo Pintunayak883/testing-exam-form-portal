@@ -8,9 +8,7 @@ const addToMasterSheet = async (user: IUser): Promise<boolean> => {
   try {
     // Check if user exists with matching userId, email, and phone
     const exists = await MasterSheet.findOne({
-      userId: user._id,
-      email: user.email,
-      phone: user.phone,
+      $or: [{ userId: user._id }, { email: user.email }, { phone: user.phone }],
     });
 
     if (!exists) {

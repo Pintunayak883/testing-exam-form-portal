@@ -14,9 +14,7 @@ type Context = {
 const addToMasterSheet = async (user: IUser): Promise<boolean> => {
   try {
     const exists = await MasterSheet.findOne({
-      userId: user._id,
-      email: user.email,
-      phone: user.phone,
+      $or: [{ userId: user._id }, { email: user.email }, { phone: user.phone }],
     });
 
     if (!exists) {
